@@ -12,7 +12,7 @@ func main() {
 		return
 	}
 	socketAddress := &syscall.SockaddrInet4{
-		Port: 8070,
+		Port: 8080,
 		Addr: [4]byte{127, 0, 0, 1},
 	}
 	err = syscall.Connect(clientSocket, socketAddress)
