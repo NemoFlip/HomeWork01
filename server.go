@@ -41,5 +41,7 @@ func main() {
 	} else {
 		fmt.Print("message is sent")
 	}
+	defer syscall.Close(serverSocket)
+	defer syscall.Close(clientSocket)
 
 }
