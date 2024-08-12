@@ -24,6 +24,7 @@ func main() {
 		fmt.Printf("Error listening: %s", err.Error())
 		return
 	}
+
 	clientSocket, clientAddress, err := syscall.Accept(serverSocket)
 	if err != nil {
 		fmt.Printf("Error accepting: %s", err.Error())
@@ -41,6 +42,4 @@ func main() {
 		fmt.Print("message is sent")
 	}
 
-	defer syscall.Close(serverSocket)
-	defer syscall.Close(clientSocket)
 }
