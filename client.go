@@ -27,7 +27,6 @@ func main() {
 		fmt.Printf("Error receiving the message: %s", err.Error())
 		return
 	}
-	fmt.Println(respMessage)
 	if string(bytes.TrimRight(respMessage, "\x00")) == "Ok" {
 		fmt.Println("Success! Got: Ok")
 	} else {

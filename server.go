@@ -41,5 +41,7 @@ func main() {
 		fmt.Printf("Error writing the message: %s", err.Error())
 		return
 	}
+	defer syscall.Close(serverSocket)
+	defer syscall.Close(clientSocket)
 
 }
