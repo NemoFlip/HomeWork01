@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"syscall"
 )
@@ -20,12 +21,17 @@ func main() {
 		fmt.Printf("Error connecting through socket: %s", err.Error())
 		return
 	}
-	var respMessage []byte
+	var respMessage = make([]byte, 1024)
 	_, _, err = syscall.Recvfrom(clientSocket, respMessage, 0)
 	if err != nil {
 		fmt.Printf("Error receiving the message: %s", err.Error())
 		return
 	}
-	fmt.Printf("Response message: %s", string(respMessage))
-
+	fmt.Println(respMessage)
+	if string(bytes.TrimRight(respMessage, "\x00")) == "Ok" {
+		fmt.Println("Success! Got: Ok")
+	} else {
+		fmt.Println("Unknown error")
+	}
+	defer syscall.Close(clientSocket)
 }

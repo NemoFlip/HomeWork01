@@ -19,11 +19,13 @@ func main() {
 		fmt.Printf("Error binding the socket to the adress: %s", err.Error())
 		return
 	}
+
 	err = syscall.Listen(serverSocket, 5)
 	if err != nil {
 		fmt.Printf("Error listening: %s", err.Error())
 		return
 	}
+	fmt.Println("Server is listening...")
 
 	clientSocket, clientAddress, err := syscall.Accept(serverSocket)
 	if err != nil {
@@ -34,14 +36,10 @@ func main() {
 	}
 
 	message := []byte("Ok")
-	err = syscall.Sendmsg(clientSocket, message, nil, clientAddress, 0)
+	_, err = syscall.Write(clientSocket, message)
 	if err != nil {
 		fmt.Printf("Error writing the message: %s", err.Error())
 		return
-	} else {
-		fmt.Print("message is sent")
 	}
-	defer syscall.Close(serverSocket)
-	defer syscall.Close(clientSocket)
 
 }
